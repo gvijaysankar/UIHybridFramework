@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sun Mar 31 02:41:44 IST 2024
+guice-multibindings-3.0-sources.jar>central=
+guice-multibindings-3.0.jar>central=
+guice-multibindings-3.0.pom>central=

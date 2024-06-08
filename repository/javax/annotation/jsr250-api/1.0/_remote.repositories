@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Mon Apr 08 02:33:49 IST 2024
+jsr250-api-1.0.pom>maven2-jboss=
+jsr250-api-1.0.jar>central=
+jsr250-api-1.0-sources.jar>central=
+jsr250-api-1.0.jar>maven2-jboss=

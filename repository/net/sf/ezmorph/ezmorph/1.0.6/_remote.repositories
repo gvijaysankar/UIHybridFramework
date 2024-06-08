@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sun Mar 31 02:40:22 IST 2024
+ezmorph-1.0.6.pom>maven2-jboss=
+ezmorph-1.0.6-sources.jar>central=
+ezmorph-1.0.6.jar>maven2-jboss=

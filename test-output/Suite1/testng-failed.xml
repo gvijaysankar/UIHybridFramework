@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite parallel="tests" name="Failed suite [Suite1]" guice-stage="DEVELOPMENT">
+  <parameter name="Browser" value="CHROME"/>
+  <test parallel="tests" name="test1(failed)">
+    <parameter name="Browser" value="CHROME"/>
+    <groups>
+      <run>
+        <include name="pallefunctional"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="TestAutomation.Scripts.Suite.StudentCompleteTest">
+        <methods>
+          <include name="testFunction1"/>
+          <include name="testFunction2"/>
+        </methods>
+      </class> <!-- TestAutomation.Scripts.Suite.StudentCompleteTest -->
+    </classes>
+  </test> <!-- test1(failed) -->
+</suite> <!-- Failed suite [Suite1] -->

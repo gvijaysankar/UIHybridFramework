@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sun Mar 31 02:33:04 IST 2024
+oro-2.0.8.jar>maven2-jboss=
+oro-2.0.8-sources.jar>maven2-jboss=
+oro-2.0.8.pom>maven2-jboss=

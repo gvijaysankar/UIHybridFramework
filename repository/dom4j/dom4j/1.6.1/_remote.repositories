@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sun Mar 31 02:32:42 IST 2024
+dom4j-1.6.1-sources.jar>maven2-jboss=
+dom4j-1.6.1.jar>maven2-jboss=
+dom4j-1.6.1.pom>maven2-jboss=

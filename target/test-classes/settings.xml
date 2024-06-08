@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <servers>
+    <server>
+      <id>renga-snapshots</id>
+            <username>mercauto</username>
+            <password>test</password>
+    </server>
+    <server>
+      <id>asr-releases</id>
+            <username>mercauto</username>
+            <password>test</password>
+    </server>
+    <server>
+      <id>asr-snapshots</id>
+            <username>mercauto</username>
+            <password>test</password>
+    </server>
+    <server>
+        <id>maven-asr-release</id>
+            <username>mercauto</username>
+            <password>test</password>
+    </server>
+    <server>
+        <id>renga-release</id>
+            <username>mercauto</username>
+            <password>test</password>
+    </server>
+    <server>
+        <id>renga-snapshot</id>
+            <username>mercauto</username>
+            <password>test</password>
+    </server>   
+    <server>
+      <id>maven-asr-snapshot</id>
+            <username>mercauto</username>
+            <password>test</password>
+    </server>    
+    <server>
+      <id>snapshots</id>
+            <username>mercauto</username>
+            <password>test</password>
+    </server>
+    <server>
+      <id>mirror</id>
+            <username>mercauto</username>
+            <password>test</password>
+    </server>    
+  </servers>
+ <mirrors>
+  </mirrors>
+<profiles>
+<profile>
+<repositories>
+	<repository>
+        <id>asr-releases</id>
+        <name>ASR Releases</name>
+         <url>https://artifactory.corp.adobe.com/artifactory/maven-asr-release</url>
+         <snapshots>
+            <enabled>true</enabled>
+         </snapshots>
+         <releases>
+            <enabled>true</enabled>
+         </releases>
+    </repository>
+    <repository>
+        <id>asr-snapshots</id>
+        <name>ASR Snapshots</name>
+        <url>https://artifactory.corp.adobe.com/artifactory/maven-asr-snapshot</url>
+        <snapshots>
+           <enabled>true</enabled>
+        </snapshots>
+	</repository>	
+</repositories>
+<pluginRepositories/>
+<id>artifactory</id>
+<activation>
+<activeByDefault>true</activeByDefault>
+</activation>
+</profile>
+</profiles>
+<pluginGroups/>
+<activeProfiles/>
+</settings>

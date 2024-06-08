@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sun Mar 31 02:27:18 IST 2024
+commons-httpclient-3.1.jar>maven2-jboss=
+commons-httpclient-3.1.pom>maven2-jboss=
+commons-httpclient-3.1-sources.jar>central=

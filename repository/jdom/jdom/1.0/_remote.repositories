@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sun Mar 31 02:44:06 IST 2024
+jdom-1.0.pom>maven2-jboss=
+jdom-1.0.jar>maven2-jboss=
+jdom-1.0-sources.jar>central=

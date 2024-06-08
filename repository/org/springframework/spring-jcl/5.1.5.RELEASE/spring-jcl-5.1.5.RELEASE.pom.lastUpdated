@@ -1,0 +1,11 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Wed May 22 19:58:14 IST 2024
+http\://download.java.net/maven/2/.error=
+http\://repository.jboss.org/maven2/.error=
+https\://artifactory.corp.adobe.com/artifactory/maven-asr-snapshot/.error=Could not transfer artifact org.springframework\:spring-jcl\:pom\:5.1.5.RELEASE from/to asr-snapshots (https\://artifactory.corp.adobe.com/artifactory/maven-asr-snapshot)\: PKIX path building failed\: sun.security.provider.certpath.SunCertPathBuilderException\: unable to find valid certification path to requested target
+https\://artifactory.corp.adobe.com/artifactory/maven-asr-release/.error=Could not transfer artifact org.springframework\:spring-jcl\:pom\:5.1.5.RELEASE from/to asr-releases (https\://artifactory.corp.adobe.com/artifactory/maven-asr-release)\: PKIX path building failed\: sun.security.provider.certpath.SunCertPathBuilderException\: unable to find valid certification path to requested target
+http\://download.java.net/maven/2/.lastUpdated=1716388093465
+0c15b6f4759f4c3ac0f127e647ffb727110d9dae@default-asr-snapshots-https\://artifactory.corp.adobe.com/artifactory/maven-asr-snapshot/.lastUpdated=1716388093387
+https\://repo1.maven.org/maven2/.lastUpdated=1716388094049
+0c15b6f4759f4c3ac0f127e647ffb727110d9dae@default-asr-releases-https\://artifactory.corp.adobe.com/artifactory/maven-asr-release/.lastUpdated=1716388093120
+http\://repository.jboss.org/maven2/.lastUpdated=1716388093797

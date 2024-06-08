@@ -1,0 +1,501 @@
+﻿SELECT count(*) FROM execution_results_flat_table e;
+
+SELECT execution_result FROM execution_results_flat_table e order by id desc LIMIT 10;
+
+select distinct environment as Environment
+from   execution_results_flat_table e
+where  environment is not null;
+
+select count(id) as TotEnvTests
+from  execution_results_flat_table e
+where lower(environment) = lower('stage');
+
+SELECT * FROM FactoryDB.Factory_Output F;
+
+select distinct browser
+from   execution_results_flat_table e
+where   operating_system is not null;
+
+select distinct operating_system
+from   execution_results_flat_table e;
+
+select * from Factory_Master;
+select sum(Quantity) as TotOutput from Factory_Output where FactoryId=1;
+
+SELECT * FROM Factory_Output F;
+
+
+
+select id, STR_TO_DATE(EXECUTION_START_TIME,'%a %b %d %H:%i:%s IST %Y') ExecStartTime
+from   execution_results_flat_table
+where   Environment='STAGE'
+ORDER BY ID DESC
+LIMIT 10;
+
+select COALESCE(date_format(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y'),'%b-12'),'Unknown') ExecMonth, count(id) TestCount
+from   execution_results_flat_table
+where   Environment='STAGE'
+group by ExecMonth
+ORDER BY ExecMonth asc;
+
+select EXECUTION_START_TIME from execution_results_flat_table where Environment='STAGE' ORDER BY ID DESC LIMIT 10 ;
+
+SELECT STR_TO_DATE('17-09-2010','%d-%m-%Y');
+SELECT STR_TO_DATE('Sun Sep 30 23:22:14 PDT 2012','%a %b %d %H:%i:%s PDT %Y');
+
+25372
+
+SELECT count(*) FROM execution_results_flat_table e;
+
+select distinct project as Project, DATE(NOW())
+from   execution_results_flat_table e
+where  Project is not null;
+       and ;
+
+select count(id) as TotEnvTests
+from  execution_results_flat_table e
+where lower(project) = lower('ecommerce');
+
+SELECT distinct project Project
+FROM execution_results_flat_table
+WHERE  EXECUTION_START_TIME is not null
+and DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = DATE(NOW()-7);
+
+SELECT distinct project Project
+FROM execution_results_flat_table
+WHERE  EXECUTION_START_TIME is not null
+and project is not null
+and DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) >= DATE_SUB(NOW(), INTERVAL 7 DAY);
+
+SELECT distinct project Project
+FROM execution_results_flat_table
+WHERE  EXECUTION_START_TIME is not null
+and project is not null
+and DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) >= DATE_SUB(NOW(), INTERVAL 7 DAY);
+
+select count(*)
+from  execution_results_flat_table e
+where EXECUTION_START_TIME is not null
+and lower(project) = lower('CXF')
+and DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) >= DATE_SUB(NOW(), INTERVAL 7 DAY);
+
+SELECT count(*) FROM execution_results_flat_table
+where project='eCommerce';
+
+SELECT distinct execution_result ExecResult, count(*) TotalCount
+FROM execution_results_flat_table
+WHERE DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = DATE(NOW())
+group by ExecResult;
+
+SELECT *
+FROM execution_results_flat_table
+WHERE DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = DATE(NOW());
+
+SELECT distinct COALESCE(locale,'Unknown') Country,count(*)
+FROM execution_results_flat_table
+WHERE DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = DATE(NOW())
+group by Country
+order by Country;
+
+SELECT distinct COALESCE(locale,'Unknown') Country, execution_result ExecResult, count(*)
+FROM execution_results_flat_table
+WHERE DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = DATE(NOW())
+and execution_result in ('Pass','Fail')
+group by Country, ExecResult
+order by Country;
+
+SELECT count(*) PassCount
+FROM execution_results_flat_table
+WHERE DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = DATE(NOW())
+and execution_result = 'Pass'
+and locale is null;
+
+SELECT count(*) FailCount
+FROM execution_results_flat_table
+WHERE DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = DATE(NOW())
+and execution_result = 'Fail'
+and locale is null;
+
+SELECT distinct COALESCE(locale,'Unknown') Country, count(*) FailCount
+FROM execution_results_flat_table
+WHERE DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = DATE(NOW())
+and execution_result = 'Fail'
+and locale = 'Canada - Français'
+group by Country
+order by Country;
+
+SELECT distinct COALESCE(operating_system,'Jenkins') OperatingSystem
+FROM execution_results_flat_table
+WHERE DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) >= DATE_SUB(NOW(), INTERVAL 90 DAY)
+group by OperatingSystem
+order by OperatingSystem;
+
+SELECT distinct COALESCE(browser,'Jenkins') Browser
+FROM execution_results_flat_table
+WHERE DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) >= DATE_SUB(NOW(), INTERVAL 90 DAY)
+group by Browser
+order by Browser;
+
+SELECT count(*) ChromeCount
+FROM execution_results_flat_table
+WHERE DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) >= DATE_SUB(NOW(), INTERVAL 90 DAY)
+and browser = 'Chrome';
+
+SELECT distinct LOWER(COALESCE(environment,'Unknown')) Environment, count(*) TestCount
+FROM execution_results_flat_table
+group by Environment
+order by Environment;
+
+SELECT distinct COALESCE(environment,'Unknown') Environment
+FROM execution_results_flat_table
+WHERE DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) >= DATE_SUB(NOW(), INTERVAL 90 DAY)
+group by Environment
+order by Environment;
+
+SELECT distinct LOWER(COALESCE(environment,'Unknown')) Environment, round(sum(COALESCE(manual_test_exec_time,0))/60) TimeSaved
+FROM execution_results_flat_table
+group by Environment
+order by Environment;
+
+SELECT distinct COALESCE(operating_system,'CXF') OperatingSystem
+FROM execution_results_flat_table
+WHERE DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = DATE(NOW())
+and portfolio = 'eCommerce'
+group by OperatingSystem
+order by OperatingSystem;
+
+select MONTHNAME(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) ExecMonth, execution_result ExecResult, count(*) TotalCount
+FROM execution_results_flat_table
+where portfolio = 'eCommerce'
+and DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) >= DATE_SUB(NOW(), INTERVAL 365 DAY)
+group by ExecMonth, ExecResult;
+
+select distinct MONTHNAME(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) ExecMonth
+FROM execution_results_flat_table
+where portfolio = 'eCommerce'
+and DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) >= DATE_SUB(NOW(), INTERVAL 365 DAY)
+order by STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y') asc;
+
+select distinct COALESCE(browser,'CXF') Browser
+FROM execution_results_flat_table
+where portfolio = 'eCommerce'
+    and DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) >= DATE_SUB(NOW(), INTERVAL 365 DAY)
+order by Browser asc;
+
+select distinct MONTHNAME(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) ExecMonth, count(*) TotalCount
+FROM execution_results_flat_table
+where portfolio = 'eCommerce'
+    and DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) >= DATE_SUB(NOW(), INTERVAL 365 DAY)
+    and COALESCE(browser,'CXF') = 'CXF'
+GROUP BY ExecMonth
+order by STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y') asc;
+
+SELECT distinct COALESCE(environment,'Unknown') Environment
+FROM execution_results_flat_table
+WHERE DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) >= DATE_SUB(NOW(), INTERVAL 90 DAY)
+and portfolio = 'eCommerce'
+group by Environment
+order by Environment;
+
+SELECT distinct COALESCE(locale,'CXF') Country
+FROM execution_results_flat_table
+WHERE DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = DATE(NOW())
+and portfolio = 'eCommerce'
+order by Country;
+
+select distinct COALESCE(environment,'Unknown') Environment
+FROM execution_results_flat_table
+where portfolio = 'eCommerce'
+and DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) >= DATE_SUB(NOW(), INTERVAL 365 DAY)
+order by Browser asc;
+
+SELECT distinct COALESCE(environment,'Unknown') Environment,
+round(sum(COALESCE(manual_test_exec_time,0))/60) TimeSaved
+FROM execution_results_flat_table
+WHERE portfolio = 'eCommerce'
+and DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) >= DATE_SUB(NOW(), INTERVAL 365 DAY)
+group by Environment
+order by Environment asc;
+
+SELECT distinct COALESCE(browser,'CXF') Browser,
+round(sum(COALESCE(manual_test_exec_time,0))/60) TimeSaved
+FROM execution_results_flat_table
+WHERE portfolio = 'eCommerce'
+and DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) >= DATE_SUB(NOW(), INTERVAL 365 DAY)
+group by Browser
+order by Browser asc;
+
+SELECT distinct testscript_java_file_name FROM execution_results_flat_table e
+where portfolio = 'eCommerce'
+and DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) >= DATE_SUB(NOW(), INTERVAL 60 DAY)
+order by project asc;
+
+select erft.environment Environment, smt.testscript_type TestScriptType, smt.testscript_name TestScriptName,
+       smt.testscript_description TestScriptDescription, count(execution_result) Total
+from   execution_results_flat_table erft, script_master_table smt
+where  erft.testscript_java_file_name = smt.testscript_java_file_name
+and    DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = DATE(NOW())
+group by erft.testscript_java_file_name
+order by TestScriptType, TestScriptName asc;
+
+select erft.environment Environment, smt.testscript_type TestScriptType, smt.testscript_name TestScriptName,
+       smt.testscript_description TestScriptDescription, count(erft.execution_result) Total, A.
+from   execution_results_flat_table erft join script_master_table smt on erft.testscript_java_file_name = smt.testscript_java_file_name
+left join
+(
+
+select environment, testscript_java_file_name, execution_result, Count(execution_result) As Cnt from execution_results_flat_table
+where DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = DATE(NOW()) GROUP BY testscript_java_file_name, execution_result
+) A
+on erft.testscript_java_file_name = A.testscript_java_file_name
+and    erft.environment = A.environment
+where    DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = DATE(NOW())
+group by erft.testscript_java_file_name
+order by TestScriptType, TestScriptName asc;
+
+select erft.environment Environment, smt.testscript_type TestScriptType, smt.testscript_name TestScriptName,
+       smt.testscript_description TestScriptDescription, count(execution_result) Total
+from   execution_results_flat_table erft, script_master_table smt
+where  erft.testscript_java_file_name = smt.testscript_java_file_name
+and    DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = DATE(NOW())
+      and execution_result = 'Fail'
+group by erft.testscript_java_file_name
+order by TestScriptType, TestScriptName asc;
+
+
+select erft.environment Environment, smt.testscript_type TestScriptType, smt.testscript_name TestScriptName,
+       smt.testscript_description TestScriptDescription, erft.testcase_id TestCaseId, erft.testcase_description TestCaseDescription, COALESCE(erft.screenshot_url,'') ScreenshotURL
+from   execution_results_flat_table erft, script_master_table smt
+where  erft.testscript_java_file_name = smt.testscript_java_file_name
+       and erft.portfolio = 'eCommerce'
+       and erft.execution_result = 'Fail'
+       and DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = DATE(NOW())
+order by Environment, TestScriptType, TestScriptName asc;
+
+
+select environment, testscript_java_file_name, execution_result, Count(execution_result) from execution_results_flat_table
+where DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = DATE(NOW()) GROUP BY testscript_java_file_name, execution_result;
+
+SELECT   A.Environment, A.TestScriptType, A.TestScriptName, A.TestScriptDescription,
+        CASE WHEN A.execution_result = 'Pass' THEN SUM(Cnt) END As PassCnt,
+        CASE WHEN A.execution_result = 'Fail' THEN SUM(Cnt) END  As FailCnt from
+        (select erft.environment as Environment, smt.testscript_type as TestScriptType, smt.testscript_name as TestScriptName,
+               smt.testscript_description as TestScriptDescription, erft.execution_result, COUNT(*) AS Cnt
+        from   execution_results_flat_table erft join script_master_table smt on erft.testscript_java_file_name = smt.testscript_java_file_name
+        where    DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = DATE(NOW())
+        group by erft.environment, smt.testscript_type, smt.testscript_name,
+             smt.testscript_description, erft.execution_result) A
+GROUP BY A.Environment, A.TestScriptType, A.TestScriptName, A.TestScriptDescription
+order by A.TestScriptType, A.TestScriptName asc;
+
+SET @tmpVar = 0;
+SET @tmpVarNew = 0;
+
+SELECT   A.Environment, A.TestScriptType, A.TestScriptName, A.TestScriptDescription,
+        SUM(A.CNT) Total,GROUP_CONCAT(A.Tmp SEPARATOR ',') PassFail
+        /*CASE WHEN A.execution_result = 'Pass' THEN max(A.Cnt) END As PassCnt,
+        CASE WHEN A.execution_result = 'Fail' THEN max(A.Cnt) END  As FailCnt  */   from
+        (select erft.environment as Environment, smt.testscript_type as TestScriptType, smt.testscript_name as TestScriptName,
+               smt.testscript_description as TestScriptDescription, Concat(erft.execution_result, ':', COUNT(*)) AS Tmp, COUNT(*) CNT
+        from   execution_results_flat_table erft join script_master_table smt on erft.testscript_java_file_name = smt.testscript_java_file_name
+        where    DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = DATE(NOW())
+        group by erft.environment, smt.testscript_type, smt.testscript_name,
+             smt.testscript_description, erft.execution_result) A
+GROUP BY A.Environment, A.TestScriptType, A.TestScriptName, A.TestScriptDescription
+/*CASE WHEN A.execution_result = 'Pass' THEN A.Cnt END,
+CASE WHEN A.execution_result = 'Fail' THEN A.Cnt END*/
+order by A.Environment, A.TestScriptType, A.TestScriptName asc;
+
+SELECT   A.Environment, A.TestScriptType, A.TestScriptName, A.TestScriptDescription,A.Pass, count(A.*)
+FROM
+(select erft.environment as Environment, smt.testscript_type as TestScriptType, smt.testscript_name as TestScriptName,
+               smt.testscript_description as TestScriptDescription, erft.execution_result, COUNT(*) AS Cnt
+        from   execution_results_flat_table erft join script_master_table smt on erft.testscript_java_file_name = smt.testscript_java_file_name
+        where    DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = DATE(NOW())
+        group by erft.environment, smt.testscript_type, smt.testscript_name,
+             smt.testscript_description, erft.execution_result) A;
+
+select erft.environment as Environment, smt.testscript_type as TestScriptType, smt.testscript_name as TestScriptName,
+               smt.testscript_description as TestScriptDescription, Concat(erft.execution_result, ':', COUNT(*)) AS Tmp
+        from   execution_results_flat_table erft join script_master_table smt on erft.testscript_java_file_name = smt.testscript_java_file_name
+        where    DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = DATE(NOW())
+        group by erft.environment, smt.testscript_type, smt.testscript_name,
+             smt.testscript_description, erft.execution_result;
+
+select erft.environment Environment, smt.testscript_type TestScriptType, smt.testscript_name TestScriptName,
+  smt.testscript_description TestScriptDescription, erft.testcase_id TestCaseId, erft.testcase_description TestCaseDescription,
+  CASE WHEN COALESCE(erft.screenshot_url,'') = ''
+       THEN
+       CASE
+       WHEN smt.testscript_type = 'CXF' THEN 'http://automationlab.corp.adobe.com/jenkins/'
+       WHEN smt.testscript_type = 'CXF-UI' THEN 'http://automationlab.corp.adobe.com/jenkins/view/EComm CXF-UI Tests/'
+       WHEN smt.testscript_type = 'UI' THEN 'http://automationlab.corp.adobe.com/jenkins/view/EComm UI Tests/'
+       END
+  ELSE erft.screenshot_url
+  END AS ScreenshotURL
+  from   execution_results_flat_table erft, script_master_table smt
+  where  erft.testscript_java_file_name = smt.testscript_java_file_name
+        and erft.portfolio = 'eCommerce'
+        and erft.execution_result = 'Fail'
+        and DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = DATE(NOW())
+  order by Environment, TestScriptType, TestScriptName asc;
+
+select distinct CONCAT(MONTH(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')),'/',
+DAYOFMONTH(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y'))) MMDDDesc,
+MONTH(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) MonthDesc,
+DAYOFMONTH(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) DayDesc
+FROM execution_results_flat_table
+where portfolio = 'eCommerce'
+and DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) >= DATE_SUB(NOW(), INTERVAL 31 DAY)
+order by STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y') asc;
+
+select execution_result ExecResult, count(*) TotalCount
+FROM execution_results_flat_table
+where portfolio = 'eCommerce'
+and DATE(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) >= DATE_SUB(NOW(), INTERVAL 31 DAY)
+and MONTH(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = '12'
+and DAYOFMONTH(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = '4'
+group by ExecResult
+order by STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y') asc;
+
+SELECT * FROM script_master_table;
+
+select smt.testscript_type TestScriptType,smt.testscript_name ScriptName, count(execution_result) totalCount,
+      (count(erft.execution_result='Pass')/count(erft.execution_result))*100
+from execution_results_flat_table erft, script_master_table smt
+  where  erft.testscript_java_file_name = smt.testscript_java_file_name
+        and erft.portfolio = 'eCommerce'
+        and erft.project = 'CXF'
+group by TestScriptType,ScriptName
+order by totalCount desc
+LIMIT 3;
+
+select   smt.testscript_type TestScriptType,smt.testscript_name ScriptName,
+         count(execution_result) TotalExecs,
+         concat(format(PassResult.PassCnt/count(execution_result)*100,2),'%') PassPercentage
+from execution_results_flat_table erft, script_master_table smt,
+(select testscript_java_file_name, portfolio, project, count(execution_result) as PassCnt
+from execution_results_flat_table erft1 where execution_result='Pass' group by testscript_java_file_name, portfolio, project) PassResult
+  where  erft.testscript_java_file_name = smt.testscript_java_file_name
+        and erft.portfolio = 'eCommerce'
+        and erft.project = 'CXF'
+        and erft.testscript_java_file_name = PassResult.testscript_java_file_name
+        and erft.portfolio = PassResult.portfolio
+        and erft.project = PassResult.project
+group by TestScriptType,ScriptName
+order by TotalExecs asc
+limit 3;
+
+select * from script_master_table;
+
+select CASE
+       WHEN smt.testscript_type = 'CXF-UI' THEN 'UI'
+       ELSE smt.testscript_type
+       END AS TestScriptType
+      ,smt.testscript_name ScriptName, erft.testscript_java_file_name, count(*) totalCount,
+      (count(erft.execution_result='Pass')/count(erft.execution_result))*100
+from execution_results_flat_table erft, script_master_table smt
+  where  erft.testscript_java_file_name = smt.testscript_java_file_name
+        and erft.portfolio = 'eCommerce'
+        and erft.project <> 'CXF'
+group by erft.testscript_java_file_name
+order by totalCount desc
+LIMIT 3;
+
+select   CASE
+       WHEN smt.testscript_type = 'CXF-UI' THEN 'UI'
+       ELSE smt.testscript_type
+       END AS TestScriptType
+      ,smt.testscript_name ScriptName,
+         count(execution_result) TotalExecs,
+         concat(format(PassResult.PassCnt/count(execution_result)*100,2),'%') PassPercentage
+from execution_results_flat_table erft, script_master_table smt,
+(select testscript_java_file_name, portfolio, project, count(execution_result) as PassCnt
+from execution_results_flat_table erft1 where execution_result='Pass' group by testscript_java_file_name, portfolio, project) PassResult
+  where  erft.testscript_java_file_name = smt.testscript_java_file_name
+        and erft.portfolio = 'eCommerce'
+        and erft.project <> 'CXF'
+        and erft.testscript_java_file_name = PassResult.testscript_java_file_name
+        and erft.portfolio = PassResult.portfolio
+        and erft.project = PassResult.project
+group by TestScriptType,ScriptName
+order by TotalExecs asc
+limit 3;
+
+SELECT defect_id DefectId, severity Severity, detected_by DetectedBy, detected_date DetectedDate FROM alm_defects_table
+order by STR_TO_DATE(detected_date,'%c/%e/%Y') desc;
+
+SELECT defect_id DefectId, severity Severity, detected_by DetectedBy, detected_date DetectedDate FROM alm_defects_table;
+
+SELECT defect_id DefectId, severity Severity, detected_by DetectedBy, detected_date DetectedDate FROM alm_defects_table
+WHERE portfolio = 'eCommerce'
+order by STR_TO_DATE(detected_date,'%c/%e/%Y') desc limit 15;
+
+SELECT distinct severity Severity, count(*) SeverityCount
+FROM alm_defects_table
+WHERE portfolio = 'eCommerce'
+group by Severity
+order by Severity asc;
+
+SELECT distinct technical_group TechnicalGroup, count(*) TechnicalGroupCount
+FROM alm_defects_table
+WHERE portfolio = 'eCommerce'
+group by TechnicalGroup
+order by TechnicalGroup asc;
+
+select CONCAT(MONTHNAME(STR_TO_DATE(date,'%c/%e/%Y')),'/',YEAR(STR_TO_DATE(date,'%c/%e/%Y'))) MonthYear,
+      summary Summary, description Description
+from other_benefits_table
+order by STR_TO_DATE(date,'%c/%e/%Y') desc limit 15;
+
+SELECT DTTable.DT, DTTable.ExecResult, CASE WHEN ActualTBL.ExecResult IS NULL THEN 0 ELSE ActualTBL.TotalCount END FROM
+(
+SELECT DISTINCT DATE(STR_TO_DATE(replace(table1.EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) DT,
+'Pass' ExecResult FROM execution_results_flat_table table1 WHERE table1.portfolio = 'eCommerce' group by DT
+UNION
+SELECT DISTINCT DATE(STR_TO_DATE(replace(table2.EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) DT,
+'Fail' ExecResult FROM execution_results_flat_table table2 WHERE table2.portfolio = 'eCommerce' group by DT
+) DTTable
+LEFT JOIN
+(
+select erft.execution_result ExecResult, DATE(STR_TO_DATE(replace(erft.EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) DTT,
+count(*) TotalCount
+FROM execution_results_flat_table erft
+where portfolio = 'eCommerce'
+group by ExecResult,  DATE(STR_TO_DATE(replace(erft.EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y'))
+) ActualTBL
+ON Date(DTTable.DT) = Date(ActualTBL.DTT) AND ActualTBL.ExecResult = DTTable.ExecResult
+WHERE DATE(DT) >= DATE_SUB(NOW(), INTERVAL 365 DAY)
+and MONTH(DT) = '12'
+and DAYOFMONTH(DT) = '5'
+ORDER BY DTTable.DT, DTTable.ExecResult;
+
+SELECT * FROM execution_results_flat_table WHERE portfolio = 'eCommerce'
+AND MONTH(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = '11'
+and DAYOFMONTH(STR_TO_DATE(replace(EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) = '16';
+
+SELECT * FROM execution_results_flat_table WHERE portfolio = 'eCommerce';
+
+select count(*) from
+
+select count(*) from execution_results_flat_table erft;
+select * from execution_results_flat_table ;
+
+alter table execution_results_flat_table convert to character set latin1 collate latin1_swedish_ci;
+ALTER TABLE execution_results_flat_table CONVERT TO CHARACTER SET utf8 COLLATE 'utf8_general_ci';
+
+Illegal mix of collations (latin1_swedish_ci,IMPLICIT) and (utf8_general_ci,COERCIBLE) for operation '=';
+
+SELECT table_schema, table_name, column_name, character_set_name, collation_name
+FROM information_schema.columns
+WHERE collation_name = 'utf8_general_ci'
+ORDER BY table_schema, table_name,ordinal_position;
+
+You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near;
+'Illegal mix of collations (latin1_swedish_ci,IMPLICIT) and (utf8_general_ci,COER' at line 1;
+
+select erft.execution_result ExecResult, DATE(STR_TO_DATE(replace(erft.EXECUTION_START_TIME,'PDT','IST'),'%a %b %d %H:%i:%s IST %Y')) DTT,
+count(*) TotalCount
+FROM execution_results_flat_table erft
+where portfolio = 'eCommerce'
+group by ExecResult;

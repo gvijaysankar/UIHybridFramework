@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sun Mar 31 02:26:57 IST 2024
+junit-3.8.1.jar>maven2-jboss=
+junit-3.8.1.pom>maven2-jboss=
+junit-3.8.1-sources.jar>maven2-jboss=

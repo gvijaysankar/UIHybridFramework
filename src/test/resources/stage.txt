@@ -1,0 +1,74 @@
+saasToolEnv=stage
+storeUrl=http://www.stage.adobe.com
+dbConnectionUrl=jdbc:oracle:thin:@pearl-a.corp.adobe.com:1655:ECDASTG1
+dbSubPassword=gSIH3$xOlf
+dbSepPassword=gPZ71$WeMf
+dbClaimPassword=gNnO2$BpnX
+dbPaymentPassword=gLT10$jYmh
+dbOlsFrontPassword=gJ7N9$NKJg
+dbOlsBackPassword=gHY1K$Cu8P
+restClientURL=http://adobe-services.stage.corp.adobe.com/subscriptions
+extrestClientURL=http://www.stage.adobe.com
+rengaEnv = na1r-stg1
+IMS_Enpoint=ims-na1-stg1.adobelogin.com
+SNURL=http://jboss-s-1.corp.adobe.com:10450/test/serial/issue.jsp?sku=
+ClaimEnv=QAE
+
+USUserWithAllTrans = saas_dsp_stage_us_20130111013003177@adobetest.com
+DEUserWithAllTrans = saas_dsp_stage_de_20130111033249129@adobetest.com
+FRUserWithAllTrans = saas_dsp_stage_fr_20130111031037921@adobetest.com
+UKUserWithAllTrans = saas_dsp_stage_uk_20130111032554480@adobetest.com
+AUUserWithAllTrans = saas_dsp_stage_au_20130111031000999@adobetest.com
+JPUserWithAllTrans = 
+userWithMultipleSubs=saas_dsp_stage_us_20130111031946445@adobetest.com
+UserWithRenewalUnAuthorizedTrans=sankarv+mailid_fr@adobetest.com
+UserWithPurchaseOpenTrans=saastest+uk@adobetest.com
+UserWithCreditOpenTransaction=saas_dsp_stage_us_20130111032325779@adobetest.com
+
+v3_end_point=http://jboss-s-1.corp.adobe.com:10450/services/v3/internalclaim
+ccmTeamUSUser= 	saas_dsp_stage_us_20121206033059783@adobetest.com
+ccmTeamActiveUser=saas_dsp_stage_us_20121206033008325@adobetest.com
+activeUser =	saas_dsp_stage_us_20121016124502522@adobetest.com
+ExpiredAuthCookieforActiveUser = renga*na1r-stg1*136aa8d56b8*3WFXNWM6X933S4G9KE7FE4X5NR 
+stoppedUser = saas_dsp_stage_us_20130129041300197@adobetest.com
+suspendedUser = saas_dsp_stage_us_2013012904100370@adobetest.com
+suspended30User = saas_dsp_stage_us_20121015113002321@adobetest.com
+closedUser =  saas_dsp_stage_us_20120412074551464@adobetest.com
+userwithmultipleAccounts = 	saas_dsp_stage_us_20130129042154281@adobetest.com
+frUser=saas_dsp_stage_fr_20130310114147434@adobetest.com
+auUser=saas_dsp_stage_au_20130310114237105@adobetest.com
+userwithnoSubscription=test_stage15@adobe.com
+activeUserWithMonthlySubs = saas_dsp_stage_us_20121016124803602@adobetest.com
+closedUserWithMonthlySubs=saas_dsp_stage_us_20120412074551464@adobetest.com
+suspendedUserWithMonthlySubs=saas_dsp_stage_us_2013012904100370@adobetest.com
+suspended30UserWithMonthlySubs=	saas_dsp_stage_us_20121016124304331@adobetest.com
+suspended30UserWithExpiredCard=	saas_dsp_stage_us_20121016124304331@adobetest.com
+suspended30EnrolledUser= saas_dsp_stage_us_20121016124304331@adobetest.com
+stoppedUserNotEnrolled = rsm+dsp6_us_stg_20121101111936819@adobetest.com
+userWithActiveClaim=rsm_dsp_claimv3_qae_101600350620@adobetest.com
+userWithStoppedClaim=rsm_dsp_claimv3_qae_1016003704554@adobetest.com
+userWithClosedClaimWithAddress=rsm_dsp_claimv3_qae_0608104415465@adobetest.com
+userWithClosedClaimWithoutAddress=rsm+dsp6_us_stg_2012052212000031@adobetest.com
+userWithSuspendedClaim=	rsm_dsp_claimv3_qae_1010031343785@adobetest.com
+userWithSuspended30Claim=rsm_dsp_claimv3_qae_1016003527929@adobetest.com
+
+
+dbOlsBackUsername=OLSBACK_USER
+dbOlsFrontUsername=OLSFRONT_USER
+dbSubUser=SUBSCRIPTION_ADMIN
+dbSepUser=SEP_USER
+
+dylanEnv=stage
+ENVIRONMENT_NAME=STAGE
+ClaimEnv=QAE
+RengaEnv=na1r-stg1
+
+v3_end_point=http://aws-internal-stage.corp.adobe.com/services/v3/internalclaim
+V1_dsp_end_point=https://claimv1.aws.stage.adobe.com/services/v1/rest/claim/desktop/subscription/
+V2_dsp_end_point=https://claimv1.aws.stage.adobe.com/services/v2/rest/claim/desktop/subscription/
+V2_web_end_point=https://claimv1.aws.stage.adobe.com/services/v2/rest/claim/web/preview/
+V2_trial_end_point=https://claimv1.aws.stage.adobe.com/services/v2/rest/claim/desktop/trial/
+V1_web_end_point=https://claimv1.aws.stage.adobe.com/services/v1/rest/claim/web/preview/
+V1_trial_end_point=https://claimv1.aws.stage.adobe.com/services/v1/rest/claim/desktop/trial/
+V2_bundle_end_point=https://claimv1.aws.stage.adobe.com/services/v2/rest/claim/desktop/bundle/
+ 

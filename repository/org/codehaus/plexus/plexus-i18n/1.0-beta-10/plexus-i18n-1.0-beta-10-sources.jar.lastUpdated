@@ -1,0 +1,14 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sun Mar 31 02:38:24 IST 2024
+http\://repository.jboss.org/maven2/.error=
+https\://repo1.maven.org/maven2/.error=
+https\://artifactory.corp.adobe.com/artifactory/maven-asr-release/.error=Could not transfer artifact org.codehaus.plexus\:plexus-i18n\:jar\:sources\:1.0-beta-10 from/to asr-releases (https\://artifactory.corp.adobe.com/artifactory/maven-asr-release)\: PKIX path building failed\: sun.security.provider.certpath.SunCertPathBuilderException\: unable to find valid certification path to requested target
+https\://repo1.maven.org/maven2/.lastUpdated=1711832904280
+http\://repository.jboss.org/maven2/.lastUpdated=1711832903574
+http\://download.java.net/maven/2/.error=
+https\://artifactory.corp.adobe.com/artifactory/maven-asr-snapshot/.error=Could not transfer artifact org.codehaus.plexus\:plexus-i18n\:jar\:sources\:1.0-beta-10 from/to asr-snapshots (https\://artifactory.corp.adobe.com/artifactory/maven-asr-snapshot)\: PKIX path building failed\: sun.security.provider.certpath.SunCertPathBuilderException\: unable to find valid certification path to requested target
+@default-sls-snapshots-https\://artifactory.corp.adobe.com/artifactory/maven-sls-dev-virtual-snapshot/.lastUpdated=1711832904529
+http\://download.java.net/maven/2/.lastUpdated=1711832903242
+0c15b6f4759f4c3ac0f127e647ffb727110d9dae@default-asr-snapshots-https\://artifactory.corp.adobe.com/artifactory/maven-asr-snapshot/.lastUpdated=1711832899364
+https\://artifactory.corp.adobe.com/artifactory/maven-sls-dev-virtual-snapshot/.error=Could not transfer artifact org.codehaus.plexus\:plexus-i18n\:jar\:sources\:1.0-beta-10 from/to sls-snapshots (https\://artifactory.corp.adobe.com/artifactory/maven-sls-dev-virtual-snapshot)\: PKIX path building failed\: sun.security.provider.certpath.SunCertPathBuilderException\: unable to find valid certification path to requested target
+0c15b6f4759f4c3ac0f127e647ffb727110d9dae@default-asr-releases-https\://artifactory.corp.adobe.com/artifactory/maven-asr-release/.lastUpdated=1711832898094

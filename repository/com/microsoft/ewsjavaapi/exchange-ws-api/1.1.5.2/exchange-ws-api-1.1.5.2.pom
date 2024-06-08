@@ -1,0 +1,69 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.microsoft.ewsjavaapi</groupId>
+    <artifactId>exchange-ws-api</artifactId>
+    <version>1.1.5.2</version>
+    <name>Exchange WebService API</name>
+    <description>The source came from http://archive.msdn.microsoft.com/ewsjavaapi
+    Support for Maven has been added.</description>
+    <parent>
+      <groupId>org.sonatype.oss</groupId>
+      <artifactId>oss-parent</artifactId>
+      <version>7</version>
+    </parent>
+    <scm>
+      <connection>scm:git:git@github.com:mjanson/ews-java.git</connection>
+      <developerConnection>scm:git:git@github.com:mjanson/ews-java.git</developerConnection>
+      <url>git@github.com:mjanson/ews-java.git</url>
+    </scm>
+    <licenses>
+        <license>
+            <name>Microsoft Public License</name>
+            <url>http://www.microsoft.com/opensource/licenses.mspx#Ms-PL</url>
+            <distribution>repo</distribution>
+            <comments>Microsoft's most open license.</comments>
+        </license>
+    </licenses>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>jcifs</groupId>
+            <artifactId>jcifs</artifactId>
+            <version>1.3.17</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+    </dependencies>
+    <repositories>
+        <repository>
+            <id>jenkins-ci.org</id> <!-- for JCIFS -->
+            <name>jenkins Maven2 Repository</name>
+            <url>http://maven.jenkins-ci.org/content/groups/artifacts</url>
+        </repository>
+    </repositories>
+</project>

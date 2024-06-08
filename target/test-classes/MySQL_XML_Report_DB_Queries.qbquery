@@ -1,0 +1,337 @@
+﻿/* live_execution_data: Live Schema for Reporting (eCommerce, MyAdobe, Merchandizing)
+test_schema: Test Schema for uploading & testing the reports for eCommerce, MyAdobe, Merchandizing
+*/
+
+select * from execution_results_flat_table;
+select count(*) from execution_results_flat_table;
+
+/* DDL, DML's */
+CREATE SCHEMA live_execution_data;
+
+DROP TABLE IF EXISTS execution_results_flat_table;
+
+CREATE TABLE execution_results_flat_table (
+  id int(255) NOT NULL AUTO_INCREMENT,
+  testscript_java_file_name varchar(500) DEFAULT NULL,
+  testscript_xml_file_name varchar(500) DEFAULT NULL,
+  testcase_id varchar(300) DEFAULT NULL,
+  testcase_description varchar(2000) DEFAULT NULL,
+  project varchar(50) DEFAULT NULL,
+  portfolio varchar(50) DEFAULT NULL,
+  environment varchar(10) DEFAULT NULL,
+  manual_test_exec_time varchar(10) DEFAULT NULL,
+  triggered_ip varchar(200) DEFAULT NULL,
+  triggered_host varchar(200) DEFAULT NULL,
+  executed_ip varchar(200) DEFAULT NULL,
+  executed_host varchar(200) DEFAULT NULL,
+  browser varchar(100) DEFAULT NULL,
+  browser_version varchar(200) DEFAULT NULL,
+  operating_system varchar(100) DEFAULT NULL,
+  /*locale varchar(100) COLLATE utf8_bin DEFAULT NULL,*/
+  locale varchar(100) DEFAULT NULL,
+  execution_start_time varchar(200) DEFAULT NULL,
+  execution_end_time varchar(200) DEFAULT NULL,
+  execution_result varchar(100) DEFAULT NULL,
+  screenshot_url varchar(2000) DEFAULT NULL,
+  database_status varchar(2000) DEFAULT NULL, 
+  sku_comparison varchar(2000) DEFAULT NULL,
+  database_sku_count varchar(2000) DEFAULT NULL,
+  ui_sku_count varchar(2000) DEFAULT NULL,
+  order_sku_count varchar(2000) DEFAULT NULL,
+  /*last_accessed_db_time varchar(200) DEFAULT NULL,*/
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/* ENGINE=InnoDB DEFAULT CHARSET=utf8; */
+
+/* ALTER TABLE execution_results_flat_table CONVERT TO CHARACTER SET utf8 COLLATE 'utf8_general_ci'; */
+/* alter table execution_results_flat_table convert to character set latin1 collate latin1_swedish_ci; */
+/* http://airbladesoftware.com/notes/fixing-mysql-illegal-mix-of-collations */
+
+/*
+alter table execution_results_flat_table add project varchar(50) default null after testcase_description;
+alter table execution_results_flat_table add portfolio varchar(50) default null after project;
+alter table execution_results_flat_table add manual_test_exec_time varchar(10) after testcase_description; 
+alter table execution_results_flat_table modify manual_test_exec_time varchar(10) after testcase_description; 
+alter table execution_results_flat_table modify locale varchar(100) COLLATE utf8_bin DEFAULT NULL;
+alter table execution_results_flat_table drop column last_accessed_db_time;
+update last_accessed_data_table
+set last_accessed_folder_name = '2012Oct08';
+select last_accessed_folder_name from last_accessed_data_table;
+DROP TABLE IF EXISTS test_schema.last_accessed_data_table;
+
+CREATE TABLE test_schema.last_accessed_data_table (
+  last_accessed_folder_name varchar(20) NOT NULL,
+  PRIMARY KEY (last_accessed_folder_name)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+insert into test_schema.last_accessed_data_table (last_accessed_folder_name) values ('2012Sep30');
+*/
+
+/*
+Windows:
+/* Upload to Test Schema */
+java -classpath C:\Adobe_Projects\Sandesh_Perforce_WorkSpace\sprabhum_boxer_1780\Cayenne\HEAD\qa\common\target\common-0.0.1-SNAPSHOT.jar;C:\Users\sprabhum\.m2\repository\mysql\mysql-connector-java\5.1.18\mysql-connector-java-5.1.18.jar;C:\Users\sprabhum\.m2\repository\log4j\log4j\1.2.16\log4j-1.2.16.jar;C:/Users/sprabhum/.m2/repository/commons-lang/commons-lang/2.6/commons-lang-2.6.jar -Dresult.upload="Test" com.adobe.store.qa.common.uploader.XMLtoDB
+/* Upload to Live Schema */
+java -classpath C:\Adobe_Projects\Sandesh_Perforce_WorkSpace\sprabhum_boxer_1780\Cayenne\HEAD\qa\common\target\common-0.0.1-SNAPSHOT.jar;C:\Users\sprabhum\.m2\repository\mysql\mysql-connector-java\5.1.18\mysql-connector-java-5.1.18.jar;C:\Users\sprabhum\.m2\repository\log4j\log4j\1.2.16\log4j-1.2.16.jar;C:/Users/sprabhum/.m2/repository/commons-lang/commons-lang/2.6/commons-lang-2.6.jar -Dresult.upload="Live" com.adobe.store.qa.common.uploader.XMLtoDB
+
+Linux:
+/* Upload to Live Schema */
+/apps/java/64/jdk1.6.0_24/bin/java -classpath /qa/jenkins_config/jobs/Check_Compile_Errors/workspace/common/target/common-0.0.1-SNAPSHOT.jar:/home/o2clab/.m2/repository/mysql/mysql-connector-java/5.1.18/mysql-connector-java-5.1.18.jar:/home/o2clab/.m2/repository/log4j/log4j/1.2.16/log4j-1.2.16.jar:/home/o2clab/.m2/repository/commons-lang/commons-lang/2.6/commons-lang-2.6.jar -Dresult.upload="Live" com.adobe.store.qa.common.uploader.XMLtoDB
+*/
+
+/*
+cp /qa/jenkins_config/jobs/Check_Compile_Errors/workspace/dashboard/target/dashboard.war /apps/mnt/site/bl1slu029.corp.adobe.com/java/deploy/
+cp /qa/jenkins_config/jobs/Check_Compile_Errors/workspace/ping/target/ping.war /apps/mnt/site/bl1slu029.corp.adobe.com/java/deploy/
+Starting Tomcat:	/apps/bin/tomcat.sh restart bl1slu029.corp.adobe.com
+Starting Apache:	/etc/init.d/httpd start
+*/
+
+DROP TABLE IF EXISTS script_master_table;
+
+CREATE TABLE script_master_table (
+  id int(255) NOT NULL AUTO_INCREMENT,
+  testscript_java_file_name varchar(500),
+  testscript_type varchar(50),
+  testscript_name varchar(500),
+  testscript_description varchar(2000),
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('ProductServiceTest','CXF','Product service','To test product service');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('InlineConfiguratorTest','CXF','Inline Configurator Service','To test Inline Configurator service');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('CheckoutServiceTest','CXF','Checkout service','To test Checkout service');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('OrderServiceTest','CXF','Order service','To test Order service');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('CartServiceTest','CXF','Cart service','To test Cart service');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('OfferServiceTest','CXF','Offer service','To test Offer service');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('ConfigurationServiceTest','CXF','Configurations service','To test Configuration service');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('SellableItemServiceTest','CXF','Sellable Item service','To test Sellable Item service');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('VatServiceTest','CXF','VAT service','To test VAT service');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('ReferenceServiceTest','CXF','Reference service','To test Reference service');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('TaxServiceTest','CXF','Tax service','To test Tax service');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('AddressServiceTest','CXF','Address service','To test Address service');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('PurchaseEligibilityServiceTest','CXF','Purchase Eligibility Service','To test Purchase Eligibility service');
+
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('PlaceOrderFromCartPageTest','CXF-UI','Cart service - Cart UI - Place order','Test flow: Cart service - Cart UI - Place order');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('PlaceOrderFromCheckoutPageTest','CXF-UI','Cart service - Checkout UI - Place Order','Test flow: Cart service - Checkout UI - Place Order');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('ValidateCartPageFromCXFCartTest','CXF-UI','Cart Validation Tests','Test flow: Cart service - Cart UI - Validate Cart page components');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('ValidateCheckoutPageFromCXFCheckoutTest','CXF-UI','Checkout Validation Tests','Test flow: Cart service - Checkout UI - Validate Checkout page components');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('ValidateOrderConfirmationPageFromCXFCheckoutTest','CXF-UI','Order Confirmation Validation Tests','Test flow: Cart service - Checkout UI - Validate Order Confirmation UI components');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('ValidateHoverCartWithCartDetailsTest','CXF-UI','HoverCart Validation Tests','Test flow: Cart service - Cart UI - Validate Hovercart components');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('ValidateCartAndEditCartPageTest','CXF-UI','Cart Edit (Increase/Decrease) + Remove Validation Tests','Test flow: Cart service - Cart UI - Cart Edit (Increase/Decrease) and Remove Validation Tests');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('ValidateDownloadCentreFromCheckoutPageTest','CXF-UI','Download Center Validation Tests','Test flow: Cart service - Checkout UI - Order Confirmation UI - Validate Download centre components');
+
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('PlaceSingleOrderTest','UI','Single Order - Commercial','Place Single Commercial Order(s) with the combination of data selected in excel input sheet');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('PlaceMixedOrderTest','UI','Mixed Order - Commercial','Place Mixed Commercial Order(s) with the combination of data selected in excel input sheet');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('PlaceEDUOrderTest','UI','Single Order - EDU','Place Single EDU Order(s) with the combination of data selected in excel input sheet');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('PlaceEDUMixedOrderTest','UI','Mixed Order - EDU','Place Mixed EDU Order(s) with the combination of data selected in excel input sheet');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('AnywareCheckoutTest','UI','Anyware Checkout','Place Order(s) using Anyware Test harness for CCM with the combination of data selected in excel input sheet');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('GNavTest','UI','GNAV','Validate Global Navigation flows with the combination of data selected in excel input sheet');
+insert into script_master_table (testscript_java_file_name,testscript_type,testscript_name,testscript_description) values ('ProductPageValidationTest','UI','Product Page ILC Validation','Validate product pages, ILC & cart page with the combination of data selected in excel input sheet');
+
+DROP TABLE IF EXISTS alm_defects_table;
+
+CREATE TABLE alm_defects_table (
+  id int(255) NOT NULL AUTO_INCREMENT,
+  defect_id varchar(10),
+  defect_summary varchar(2500),
+  portfolio varchar(50) DEFAULT NULL,
+  project varchar(50) DEFAULT NULL,
+  severity varchar(50) DEFAULT NULL,
+  detected_by varchar(50) DEFAULT NULL,
+  /*detected_date date DEFAULT NULL,*/
+  detected_date varchar(200) DEFAULT NULL,
+  technical_group varchar(25) DEFAULT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+insert into alm_defects_table (defect_id,defect_summary,portfolio,project,severity,detected_by,detected_date,technical_group) values ('3420','Configuration Service: "idpHost" value should not have space appending for the IMS Client in pr-prod','eCommerce','cxf','3-Minor Failure','sankarv','7/11/2012','CXF');
+insert into alm_defects_table (defect_id,defect_summary,portfolio,project,severity,detected_by,detected_date,technical_group) values ('3773','Purchage Eligibity: Request body changes from Sellable Item for single object of "regional_infos" & "version": ""','eCommerce','cxf','2-Major Failure','sankarv','7/31/2012','CXF');
+insert into alm_defects_table (defect_id,defect_summary,portfolio,project,severity,detected_by,detected_date,technical_group) values ('3816','Product Service: Default Market Segment should be considered as COM if there is no value in the request URI','eCommerce','cxf','3-Minor Failure','sankarv','8/2/2012','CXF');
+insert into alm_defects_table (defect_id,defect_summary,portfolio,project,severity,detected_by,detected_date,technical_group) values ('3833','New GET cart service is returning 400- Bad request (CART_STORE_MISMATCH)','eCommerce','cxf','3-Minor Failure','mbhuyyar','8/6/2012','CXF');
+insert into alm_defects_table (defect_id,defect_summary,portfolio,project,severity,detected_by,detected_date,technical_group) values ('3937','Purchase Eligibility: If user sends invalid GUID in the request body, response should be 400 - PE_USER_SUBSCRIPTIONS_UNAVAILABLE','eCommerce','cxf','3-Minor Failure','sankarv','8/10/2012','CXF');
+insert into alm_defects_table (defect_id,defect_summary,portfolio,project,severity,detected_by,detected_date,technical_group) values ('3964','Purchase Eligibility: DSP Products to be inlucded in PE Corticon rules set','eCommerce','cxf','3-Minor Failure','sankarv','8/13/2012','CXF');
+insert into alm_defects_table (defect_id,defect_summary,portfolio,project,severity,detected_by,detected_date,technical_group) values ('4011','Stage - Cart Service: Giving 500 Error when the request body is having invalid SKU','eCommerce','cxf','2-Major Failure','sankarv','8/17/2012','CXF');
+insert into alm_defects_table (defect_id,defect_summary,portfolio,project,severity,detected_by,detected_date,technical_group) values ('4763','PE- 500 Internal Server Error due to changes in Sellable Item service','eCommerce','cxf','2-Major Failure','sankarv','10/8/2012','DAY');
+
+DROP TABLE IF EXISTS other_benefits_table;
+
+CREATE TABLE other_benefits_table (
+  id int(255) NOT NULL AUTO_INCREMENT,
+  date varchar(200) DEFAULT NULL,
+  date_description varchar(1000) DEFAULT NULL,
+  summary varchar(500),
+  description varchar(1000) DEFAULT NULL,
+  portfolio varchar(50) DEFAULT NULL,
+  project varchar(50) DEFAULT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+insert into other_benefits_table (date,date_description,summary,description,portfolio,project) values ('12/01/2012','Oct’12 - Apr’13','Store regression testing of WCMS migration to IaaS','Store regression testing will be predominantly done using automation for WCMS migration to IaaS and upgrade to v5.6. Minimal manual effort is planned','eCommerce','eCommerce');
+insert into other_benefits_table (date,date_description,summary,description,portfolio,project) values ('11/01/2012','Nov’12','500 orders created in STAGE to load test card secure','Around 500 orders were created in STAGE as test data for load testing of card secure','eCommerce','eCommerce');
+insert into other_benefits_table (date,date_description,summary,description,portfolio,project) values ('09/01/2012','','eCommerce automation platform has multiple clients','eCommerce automation platform is now being used by MyAdobe and Merchandizing teams','eCommerce','eCommerce');
+
+DROP TABLE IF EXISTS effort_tracker;
+
+/*CREATE TABLE effort_tracker (
+  id int(255) NOT NULL AUTO_INCREMENT,
+  date varchar(200) DEFAULT NULL,
+  portfolio varchar(50) DEFAULT NULL,
+  ui_enhancement varchar(10) DEFAULT NULL,
+  store_functionality varchar(10) DEFAULT NULL,
+  environment_upgrade varchar(10) DEFAULT NULL,
+  backend varchar(10) DEFAULT NULL,
+  daily_execution varchar(10) DEFAULT NULL,
+  debugging varchar(10) DEFAULT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+insert into effort_tracker (date,portfolio,ui_enhancement,store_functionality,environment_upgrade,backend,daily_execution,debugging) values ('12/31/2012','eCommerce','5','','','','','19');*/
+
+CREATE TABLE effort_tracker (
+  id int(255) NOT NULL AUTO_INCREMENT,
+  date varchar(200) DEFAULT NULL,
+  portfolio varchar(50) DEFAULT NULL,
+  effort_desc varchar(100) DEFAULT NULL,
+  effort_hours varchar(10) DEFAULT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('12/31/2012','eCommerce','UI Enhancement','5');
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('12/31/2012','eCommerce','Store Functionality','0');
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('12/31/2012','eCommerce','Environment Upgrade','0');
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('12/31/2012','eCommerce','Backend','0');
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('12/31/2012','eCommerce','Daily Execution','0');
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('12/31/2012','eCommerce','Debugging','19');
+
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('1/31/2013','eCommerce','UI Enhancement','26');
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('1/31/2013','eCommerce','Store Functionality','0');
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('1/31/2013','eCommerce','Environment Upgrade','0');
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('1/31/2013','eCommerce','Backend','0');
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('1/31/2013','eCommerce','Daily Execution','0');
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('1/31/2013','eCommerce','Debugging','33');
+
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('2/28/2013','eCommerce','UI Enhancement','31');
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('2/28/2013','eCommerce','Store Functionality','45');
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('2/28/2013','eCommerce','Environment Upgrade','51');
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('2/28/2013','eCommerce','Backend','28');
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('2/28/2013','eCommerce','Daily Execution','4');
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('2/28/2013','eCommerce','Debugging','42');
+
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('3/31/2013','eCommerce','UI Enhancement','9');
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('3/31/2013','eCommerce','Store Functionality','0');
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('3/31/2013','eCommerce','Environment Upgrade','0');
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('3/31/2013','eCommerce','Backend','0');
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('3/31/2013','eCommerce','Daily Execution','3');
+insert into effort_tracker (date,portfolio,effort_desc,effort_hours) values ('3/31/2013','eCommerce','Debugging','53');
+
+CREATE TABLE people_resources (
+  emp_id int(255) NOT NULL,
+  emp_name varchar(200) DEFAULT NULL,
+  emp_pillar varchar(50) DEFAULT NULL,
+  emp_project varchar(100) DEFAULT NULL,
+  emp_team varchar(100) DEFAULT NULL,
+  emp_phase varchar(100) DEFAULT NULL,
+  emp_type varchar(100) DEFAULT NULL,
+  temp_type varchar(100) DEFAULT NULL,
+  lead varchar(100) DEFAULT NULL,
+  reporting_manager varchar(100) DEFAULT NULL,
+  automation_skills varchar(100) DEFAULT NULL,
+  projected_end_date varchar(100) DEFAULT NULL,
+  funding_info varchar(100) DEFAULT NULL,
+  date_of_joining varchar(100) DEFAULT NULL,
+  primary_tech_exp varchar(100) DEFAULT NULL,  
+  PRIMARY KEY (emp_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (13318,'Mukesh Gupta','O2C','Subscriptions','Subscriptions','Sprint','Regular',null,'Lead','Abhiram Cuduvalli','Y','NA','NA','06/05/2006','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (38121,'Ashok Kumar A','O2C','Ecommerce','Discovery','Sprint','Regular',null,'Null','Abhiram Cuduvalli','Y','NA','NA','04/13/2009','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (25463,'Prasanna Venkatraman','O2C','Ecommerce','Lead','Lead','Regular',null,'Lead','Abhiram Cuduvalli','Y','NA','NA','05/04/2009','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (31088,'Aarti Arvind','O2C','Ecommerce','Lead','Lead','Regular',null,'Lead','Abhiram Cuduvalli','N','NA','NA','02/01/2010','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (31124,'Narasimha Prabhu Kodman','DMSP','MyAdobe','MyAdobe','Sprint','Regular',null,'Lead','Abhiram Cuduvalli','Y','NA','NA','02/01/2010','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (25585,'Vishal Verma','O2C','Ecommerce','Checkout','Sprint','Regular',null,'Null','Abhiram Cuduvalli','Y','NA','NA','05/31/2010','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (36596,'Syed Abdul Jaleel','O2C','Ecommerce','GST','Sprint','Regular',null,'Lead','Abhiram Cuduvalli','Y','NA','NA','11/15/2010','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (38044,'Mallikarjun Bhuyyar','O2C','Ecommerce','Commerce Services','Sprint','Regular',null,'Null','Abhiram Cuduvalli','Y','NA','NA','02/21/2011','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (38754,'Sandesh Prabhu M S','O2C','Ecommerce','Automation','Automation','Regular',null,'Lead','Abhiram Cuduvalli','Y','NA','NA','04/18/2011','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (39838,'Bhartesh L K','O2C','Ecommerce','Integration','Integration','Temp','Temp - Type 3','Null','Abhiram Cuduvalli','N','11/30/2013','Vinu Funding','05/30/2011','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (42262,'Vivekananda Shetty ','O2C','Ecommerce','Checkout','Sprint','Temp','Temp - Type 3','Null','Abhiram Cuduvalli','N','11/30/2013','Vinu Funding','10/24/2011','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (42612,'Raju Korti','O2C','Ecommerce','Discovery','Sprint','Temp','Temp - Type 5','Null','Abhiram Cuduvalli','N','11/30/2013','Vinu Funding','11/09/2011','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (25376,'Vanapalli Sankar Kishore','O2C','Ecommerce','Commerce Services','Sprint','Regular',null,'Null','Abhiram Cuduvalli','Y','NA','NA','02/29/2012','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (45231,'Sridhar T J','O2C','Ecommerce','Integration','Integration','Temp','Temp - Type 5','Null','Abhiram Cuduvalli','Y','11/30/2013','Vinu Funding','04/09/2012','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (46679,'Rachit Sharma','O2C','Ecommerce','Support','Support','Regular',null,'Null','Abhiram Cuduvalli','Y','NA','NA','06/25/2012','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (47321,'Anushree Tiwari','O2C','Ecommerce','Support','Support','Regular',null,'Null','Abhiram Cuduvalli','Y','NA','NA','08/13/2012','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (48501,'Sharat Atri','O2C','Ecommerce','Integration','Integration','Regular',null,'Null','Abhiram Cuduvalli','N','NA','NA','10/22/2012','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (46979,'Archana BS','O2C','Ecommerce','ROW','Integration - RoW','Temp - Fixed bid','Temp - Type 5','Null','Abhiram Cuduvalli','Y','08/31/2013','Project Funding','07/09/2012','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (46980,'Deepthi S','O2C','Ecommerce','ROW','Integration - RoW','Temp - Fixed bid','Temp - Type 5','Null','Abhiram Cuduvalli','Y','08/31/2013','Project Funding','07/09/2012','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (48272,'Prashanth Shimoga','O2C','Ecommerce','ROW','Integration - RoW','Temp - Fixed bid','Temp - Type 5','Null','Abhiram Cuduvalli','N','08/31/2013','Project Funding','11/29/2012','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (48831,'Seema Jhala','O2C','Ecommerce','ROW','Integration - RoW','Temp - Fixed bid','Temp - Type 5','Null','Abhiram Cuduvalli','N','08/31/2013','Project Funding','11/29/2012','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (48834,'Vijay Karthikeyan T','O2C','Ecommerce','ROW','Integration - RoW','Temp - Fixed bid','Temp - Type 5','Null','Abhiram Cuduvalli','N','08/31/2013','Project Funding','11/29/2012','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (49141,'Viveknath Chilukuri','O2C','Ecommerce','ROW','Integration - RoW','Temp - Fixed bid','Temp - Type 5','Null','Abhiram Cuduvalli','N','08/31/2013','Project Funding','11/05/2012','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (100,'Yuvaraj Prakashappa','O2C','Ecommerce','ROW','Integration - RoW','Temp - Fixed bid','Temp - Type 5','Null','Abhiram Cuduvalli','N','08/31/2013','Project Funding','04/05/2013','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (101,'Anitha Appasamy','O2C','Ecommerce','ROW','Integration - RoW','Temp - Fixed bid','Temp - Type 5','Null','Abhiram Cuduvalli','N','08/31/2013','Project Funding','04/05/2013','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (102,'Hemanth BV','O2C','Ecommerce','ROW','Integration - RoW','Temp - Fixed bid','Temp - Type 5','Null','Abhiram Cuduvalli','Y','08/31/2013','Project Funding','04/01/2013','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (47316,'Sheela S','O2C','Ecommerce','ROW','Integration','Temp','Temp - Type 5','Null','Abhiram Cuduvalli','Y','11/30/2013','Vinu Funding','08/09/2012','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (39213,'Raghavendra Putta','O2C','Ecommerce','GST','Sprint','Regular',Null,'Null','Deepak Gopalakrishnan','N','NA','NA','05/09/2011','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (36736,'Rakesh Payyadi','O2C','Ecommerce','GST','Sprint','Temp','Temp - Type 3','Null','Vijay Rajagopalan','N','11/30/2013','Vinu Funding','11/172010','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (103,'Miki Marvel','O2C','Ecommerce','Checkout','Sprint','Regular','NA','Null','Ramya Adhishesh','Y','NA','NA','NA','ColdFusion/JAVA/CXF');
+
+insert into people_resources (emp_id,emp_name,emp_pillar,emp_project,emp_team,emp_phase,emp_type,temp_type,lead,reporting_manager,automation_skills,projected_end_date,funding_info,date_of_joining,primary_tech_exp) 
+values (104,'Ramya Adhishesh','O2C','Ecommerce','Lead','Lead','Regular','NA','Lead','Mathew Bohl','N','NA','NA','NA','ColdFusion/JAVA/CXF');

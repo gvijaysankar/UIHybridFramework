@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sun Mar 31 02:43:38 IST 2024
+mongodb-driver-core-3.6.4.jar>central=
+mongodb-driver-core-3.6.4.pom>central=
+mongodb-driver-core-3.6.4-sources.jar>central=
